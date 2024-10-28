@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protected PDF Viewer</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #content { display: none; margin-top: 20px; }
+        .pdf-link { display: block; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Enter Password to Access PDFs</h1>
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkPassword()">Submit</button>
+    <div id="content">
+        <h2>PDF Files</h2>
+        <h3>Session 1</h3>
+        <a href="pdfs/session-1/2024-10-16.pdf" class="pdf-link" target="_blank">2024-10-16.pdf</a>
+        <a href="pdfs/session-1/2024-10-17.pdf" class="pdf-link" target="_blank">2024-10-17.pdf</a>
+        <a href="pdfs/session-1/2024-10-22.pdf" class="pdf-link" target="_blank">2024-10-22.pdf</a>
+        <a href="pdfs/session-1/2024-10-26.2.pdf" class="pdf-link" target="_blank">2024-10-26.2.pdf</a>
+        <a href="pdfs/session-1/2024-10-26.pdf" class="pdf-link" target="_blank">2024-10-26.pdf</a>
+    </div>
+
+    <script>
+        const correctPassword = "your_password"; // Set your base password here
+
+        function checkPassword() {
+            const input = document.getElementById("password").value;
+            if (input === correctPassword) {
+                document.getElementById("content").style.display = "block";
+            } else {
+                alert("Incorrect password.");
+            }
+        }
+    </script>
+</body>
+</html>
