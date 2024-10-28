@@ -3,37 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protected PDF Viewer</title>
+    <title>Journal Entry Viewer</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
-        #content { display: none; margin-top: 20px; }
-        .pdf-link { display: block; margin: 10px 0; }
+        #content, #pdf-viewer { display: none; margin-top: 20px; }
+        .pdf-link, .session-link, #back-button { display: block; margin: 10px 0; cursor: pointer; }
+        iframe { width: 100%; height: 600px; border: none; }
     </style>
 </head>
 <body>
-    <h1>Enter Password to Access PDFs</h1>
+    <h1>Enter Password to Access Journal Entries</h1>
     <input type="password" id="password" placeholder="Password">
     <button onclick="checkPassword()">Submit</button>
+    
     <div id="content">
-        <h2>PDF Files</h2>
-        <h3>Session 1</h3>
-        <a href="pdfs/session-1/2024-10-16.pdf" class="pdf-link" target="_blank">2024-10-16.pdf</a>
-        <a href="pdfs/session-1/2024-10-17.pdf" class="pdf-link" target="_blank">2024-10-17.pdf</a>
-        <a href="pdfs/session-1/2024-10-22.pdf" class="pdf-link" target="_blank">2024-10-22.pdf</a>
-        <a href="pdfs/session-1/2024-10-26.2.pdf" class="pdf-link" target="_blank">2024-10-26.2.pdf</a>
-        <a href="pdfs/session-1/2024-10-26.pdf" class="pdf-link" target="_blank">2024-10-26.pdf</a>
+        <h2>Journal Entries</h2>
+        <span class="session-link" onclick="toggleSession()">Session 1</span>
+        <div id="session-1" style="display: none;">
+            <a href="pdfs/session-1/2024-10-16.pdf" class="pdf-link" onclick="showPDF('pdfs/session-1/2024-10-16.pdf')">2024-10-16.pdf</a>
+            <a href="pdfs/session-1/2024-10-17.pdf" class="pdf-link" onclick="showPDF('pdfs/session-1/2024-10-17.pdf')">2024-10-17.pdf</a>
+            <a href="pdfs/session-1/2024-10-22.pdf" class="pdf-link" onclick="showPDF('pdfs/session-1/2024-10-22.pdf')">2024-10-22.pdf</a>
+            <a href="pdfs/session-1/2024-10-26.2.pdf" class="pdf-link" onclick="showPDF('pdfs/session-1/2024-10-26.2.pdf')">2024-10-26.2.pdf</a>
+            <a href="pdfs/session-1/2024-10-26.pdf" class="pdf-link" onclick="showPDF('pdfs/session-1/2024-10-26.pdf')">2024-10-26.pdf</a>
+        </div>
+    </div>
+
+    <div id="pdf-viewer">
+        <button id="back-button" onclick="goBack()">Back to PDF List</button>
+        <iframe id="pdf-frame" src=""></iframe>
     </div>
 
     <script>
-        const correctPassword = "your_password"; // Set your base password here
+        const correctPassword = "apple";
 
         function checkPassword() {
             const input = document.getElementById("password").value;
             if (input === correctPassword) {
                 document.getElementById("content").style.display = "block";
+                document.getElementById("password").style.display = "none";
+                document.querySelector("button").style.display = "none";
             } else {
                 alert("Incorrect password.");
             }
+        }
+
+        function toggleSession() {
+            const session = document.getElementById("session-1");
+            session.style.display = session.style.display === "none" ? "block" : "none";
+        }
+
+        function showPDF(pdfPath) {
+            document.getElementById("content").style.display = "none";
+            document.getElementById("pdf-viewer").style.display = "block";
+            document.getElementById("pdf-frame").src = pdfPath;
+        }
+
+        function goBack() {
+            document.getElementById("pdf-viewer").style.display = "none";
+            document.getElementById("content").style.display = "block";
+            document.getElementById("pdf-frame").src = "";
         }
     </script>
 </body>
