@@ -8,11 +8,20 @@
         body { font-family: Arial, sans-serif; text-align: center; }
         #content, #pdf-viewer { display: none; margin-top: 20px; }
         .pdf-link, .session-link, #back-button { display: block; margin: 10px 0; cursor: pointer; }
-        iframe { width: 100%; height: 600px; border: none; }
+        iframe { width: 100%; height: calc(100vh - 70px); border: none; }
+
+        .session-link {
+            color: blue;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .session-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <h1>Enter Password to Access Journal Entries</h1>
+    <h1 id="password-title">Enter Password to Access Journal Entries</h1>
     <input type="password" id="password" placeholder="Password">
     <button onclick="checkPassword()">Submit</button>
     
@@ -23,13 +32,13 @@
             <a href="pdfs/session-1/2024-10-16.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-16.pdf')">2024-10-16.pdf</a>
             <a href="pdfs/session-1/2024-10-17.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-17.pdf')">2024-10-17.pdf</a>
             <a href="pdfs/session-1/2024-10-22.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-22.pdf')">2024-10-22.pdf</a>
-            <a href="pdfs/session-1/2024-10-26.2.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-26.2.pdf')">2024-10-26.2.pdf</a>
             <a href="pdfs/session-1/2024-10-26.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-26.pdf')">2024-10-26.pdf</a>
+            <a href="pdfs/session-1/2024-10-26.2.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-26.2.pdf')">2024-10-26.2.pdf</a>
         </div>
     </div>
 
     <div id="pdf-viewer">
-        <button id="back-button" onclick="goBack()">Back to PDF List</button>
+        <button id="back-button" onclick="goBack()">Back to Journal</button>
         <iframe id="pdf-frame" src=""></iframe>
     </div>
 
@@ -41,6 +50,7 @@
             if (input === correctPassword) {
                 document.getElementById("content").style.display = "block";
                 document.getElementById("password").style.display = "none";
+                document.getElementById("password-title").style.display = "none";
                 document.querySelector("button").style.display = "none";
             } else {
                 alert("Incorrect password.");
