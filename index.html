@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journal Entry Viewer</title>
+    <title>Protected PDF Viewer</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         #content, #pdf-viewer { display: none; margin-top: 20px; }
@@ -20,11 +20,11 @@
         <h2>Journal Entries</h2>
         <span class="session-link" onclick="toggleSession()">Session 1</span>
         <div id="session-1" style="display: none;">
-            <a href="pdfs/session-1/2024-10-16.pdf" class="pdf-link" onclick="showPDF('pdfs/session-1/2024-10-16.pdf')">2024-10-16.pdf</a>
-            <a href="pdfs/session-1/2024-10-17.pdf" class="pdf-link" onclick="showPDF('pdfs/session-1/2024-10-17.pdf')">2024-10-17.pdf</a>
-            <a href="pdfs/session-1/2024-10-22.pdf" class="pdf-link" onclick="showPDF('pdfs/session-1/2024-10-22.pdf')">2024-10-22.pdf</a>
-            <a href="pdfs/session-1/2024-10-26.2.pdf" class="pdf-link" onclick="showPDF('pdfs/session-1/2024-10-26.2.pdf')">2024-10-26.2.pdf</a>
-            <a href="pdfs/session-1/2024-10-26.pdf" class="pdf-link" onclick="showPDF('pdfs/session-1/2024-10-26.pdf')">2024-10-26.pdf</a>
+            <a href="pdfs/session-1/2024-10-16.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-16.pdf')">2024-10-16.pdf</a>
+            <a href="pdfs/session-1/2024-10-17.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-17.pdf')">2024-10-17.pdf</a>
+            <a href="pdfs/session-1/2024-10-22.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-22.pdf')">2024-10-22.pdf</a>
+            <a href="pdfs/session-1/2024-10-26.2.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-26.2.pdf')">2024-10-26.2.pdf</a>
+            <a href="pdfs/session-1/2024-10-26.pdf" class="pdf-link" onclick="showPDF(event, 'pdfs/session-1/2024-10-26.pdf')">2024-10-26.pdf</a>
         </div>
     </div>
 
@@ -52,16 +52,17 @@
             session.style.display = session.style.display === "none" ? "block" : "none";
         }
 
-        function showPDF(pdfPath) {
+        function showPDF(event, pdfPath) {
+            event.preventDefault(); // Prevent the link's default action
             document.getElementById("content").style.display = "none";
             document.getElementById("pdf-viewer").style.display = "block";
-            document.getElementById("pdf-frame").src = pdfPath;
+            document.getElementById("pdf-frame").src = pdfPath; // Set the iframe source to the PDF file
         }
 
         function goBack() {
             document.getElementById("pdf-viewer").style.display = "none";
             document.getElementById("content").style.display = "block";
-            document.getElementById("pdf-frame").src = "";
+            document.getElementById("pdf-frame").src = ""; // Clear the iframe source
         }
     </script>
 </body>
